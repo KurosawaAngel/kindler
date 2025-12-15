@@ -33,7 +33,7 @@ func (e *Emailer) EmailFile(data io.Reader, name string, to string) error {
 	m.SetHeader("Subject", mime.QEncoding.Encode("UTF-8", name))
 	m.SetBody("text/plain; charset=UTF-8", name)
 
-	m.Attach(name, gomail.Rename(mime.QEncoding.Encode("UTF-8", name)),
+	m.Attach(mime.QEncoding.Encode("UTF-8", name),
 		gomail.SetCopyFunc(func(w io.Writer) error {
 			_, err := io.Copy(w, data)
 			return err
